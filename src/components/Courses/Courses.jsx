@@ -1,13 +1,13 @@
 import CourseCard from "./components/CourseCard/CourseCard";
 import SearchBar from "./components/SearchBar/SearchBar";
 import Button from "../../common/Button/Button";
-import { useAuth } from "../../helpers/auth";
+import { useCoursesContext } from "../../context/Courses";
 import { useState } from "react";
 import "./Courses.css";
 
 export default function Courses() {
   const [searchQuery, setSearchQuery] = useState("");
-  const { courses } = useAuth()
+  const { courses } = useCoursesContext()
   console.log(courses)
   return (
     <>

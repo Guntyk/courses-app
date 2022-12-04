@@ -1,12 +1,12 @@
 import { logoutUser } from "../../api/requests";
 import Button from "../../common/Button/Button";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../helpers/auth";
+import { useCoursesContext } from "../../context/Courses";
 import Logo from "./components/Logo/Logo";
 import "./Header.css";
 
 export default function Header() {
-  const auth = useAuth();
+  const auth = useCoursesContext();
   const history = useHistory();
 
   function handleLogout() {

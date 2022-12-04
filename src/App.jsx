@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Courses from "./components/Courses/Courses";
 import Header from "./components/Header/Header";
 import Login from "./components/Login/Login";
-import { useAuth } from "./helpers/auth";
+import { useCoursesContext } from "./context/Courses";
 import { useState } from "react";
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
 export default App;
 
 function RequireAuthRoute({ children }) {
-  const auth = useAuth();
+  const auth = useCoursesContext();
 
   if (!auth.user) {
     // return <Redirect to="/registration" />;

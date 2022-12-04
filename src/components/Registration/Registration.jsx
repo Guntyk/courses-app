@@ -1,13 +1,13 @@
+import { useCoursesContext } from "../../context/Courses";
 import { Link, useHistory } from "react-router-dom";
 import { registerUser } from "../../api/requests";
 import Button from "../../common/Button/Button";
 import Input from "../../common/Input/Input";
-import { useAuth } from "../../helpers/auth";
 import "./Registration.css";
 
 export default function Registration({ setUser }) {
   const history = useHistory();
-  const auth = useAuth();
+  const auth = useCoursesContext();
   function handleSubmit(e) {
     e.preventDefault();
     const user = {

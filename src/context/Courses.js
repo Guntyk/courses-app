@@ -1,9 +1,9 @@
 import { createContext, useContext, useState } from "react";
 import { useCourses } from "../hooks/useCourses";
 
-const AuthContext = createContext(null);
+const CoursesContext = createContext(null);
 
-export const AuthProvider = ({ children }) => {
+export const CoursesProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const coursesData = useCourses()
 
@@ -15,12 +15,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, logIn, logOut, coursesData }}>
+    <CoursesContext.Provider value={{ user, logIn, logOut, coursesData }}>
       {children}
-    </AuthContext.Provider>
+    </CoursesContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  return useContext(AuthContext);
+export const useCoursesContext = () => {
+  return useContext(CoursesContext);
 };
