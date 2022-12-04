@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import {
   createCourse,
   deleteCourse,
@@ -6,12 +7,14 @@ import {
   getCourses,
   getAuthors,
   registerUser,
+  loginUser,
 } from "../api/requests";
 
 export function useCourses() {
   const [authors, setAuthors] = useState([]);
   const [courses, setCourses] = useState([]);
   const [user, setUser] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     // Courses Getting
@@ -33,22 +36,31 @@ export function useCourses() {
       }
     });
   }, []);
-  
+
   // ===== User Start =====
   const register = (userObj) => {
     registerUser(userObj).then(([registrationError, registeredUser]) => {
       if (registeredUser) {
-        setUser(registeredUser);
+        login(userObj);
+        history.replace("/");
       } else {
         console.log(registrationError);
-        alert("Registration error");
+        alert("This user is already exist");
       }
     });
   };
 
-  const logIn = (user) => {
-    setUser(user);
+  const login = (userObj) => {
+    loginUser(userObj).then(([loginError, loggedUser]) => {
+      if (loggedUser) {
+        setUser(userObj);
+      } else {
+        console.log(loginError);
+        alert("Login error");
+      }
+    });
   };
+
   const logOut = () => {
     setUser(null);
   };
@@ -88,14 +100,17 @@ export function useCourses() {
   // ===== Courses End =====
   // ===== Authors Start =====
   // ===== Authors End =====
+
   return {
     user,
     authors,
     courses,
+    setUser,
     addCourse,
     searchCourses,
     removeCourse,
-    logIn,
+    register,
+    login,
     logOut,
   };
 }

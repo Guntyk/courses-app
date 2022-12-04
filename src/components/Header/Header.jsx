@@ -12,7 +12,7 @@ export default function Header() {
   function handleLogout() {
     logoutUser();
     logOut();
-    history.replace("/");
+    // history.replace("/");
   }
 
   return (

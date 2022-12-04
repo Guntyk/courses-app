@@ -1,30 +1,29 @@
 import { useCoursesContext } from "../../context/Courses";
 import { Link, useHistory } from "react-router-dom";
-import { registerUser } from "../../api/requests";
 import Button from "../../common/Button/Button";
 import Input from "../../common/Input/Input";
 import "./Registration.css";
 
-export default function Registration({ setUser }) {
+export default function Registration() {
   const history = useHistory();
-  const auth = useCoursesContext();
+  const { user, register, setUser } = useCoursesContext();
   function handleSubmit(e) {
     e.preventDefault();
     const user = {
       name: e.target.name.value.trim(),
       email: e.target.email.value.trim(),
-      password: e.target.password.value.trim()
+      password: e.target.password.value.trim(),
     };
-    registerUser(user)
+    register(user);
+    console.log(register(user));
     setUser(user);
-    auth.logIn(user);
     e.target.name.value = "";
-    history.replace("/");
+    // history.replace("/");
   }
 
-  if (auth.user) {
-    history.goBack();
-  }
+  // if (user) {
+  //   history.goBack();
+  // }
 
   return (
     <div className="column">
@@ -34,6 +33,7 @@ export default function Registration({ setUser }) {
           labelText="Name"
           placeholderText="Enter name"
           name="name"
+          minLength="2"
           required
         />
         <Input
@@ -48,6 +48,7 @@ export default function Registration({ setUser }) {
           labelText="Password"
           name="password"
           type="password"
+          minLength="6"
           required
         />
         <Button

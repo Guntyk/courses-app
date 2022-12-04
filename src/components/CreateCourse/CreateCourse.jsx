@@ -1,10 +1,9 @@
-import { useState } from 'react';
-import { v4 } from 'uuid';
+import { pipeDuration } from '../../helpers/pipeDuration';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
-import { mockedAuthorsList } from '../../constants';
-import { pipeDuration } from '../../helpers/pipeDuration';
+import { useState } from 'react';
 import './CreateCourse.css';
+import { v4 } from 'uuid';
 
 export default function CreateCourse({
   setCoursesList,

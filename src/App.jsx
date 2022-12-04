@@ -31,10 +31,10 @@ function App() {
 export default App;
 
 function RequireAuthRoute({ children }) {
-  const auth = useCoursesContext()
-  if (!auth.user) {
-    // return <Redirect to="/registration" />;
-    console.log("1")
+  const { user } = useCoursesContext()
+  console.log(user)
+  if (!user) {
+    return <Redirect to="/login" />;
   }
 
   return children;
