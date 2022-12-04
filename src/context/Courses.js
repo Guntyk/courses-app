@@ -4,18 +4,10 @@ import { useCourses } from "../hooks/useCourses";
 const CoursesContext = createContext(null);
 
 export const CoursesProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
   const coursesData = useCourses()
-
-  const logIn = (user) => {
-    setUser(user);
-  };
-  const logOut = () => {
-    setUser(null);
-  };
-
+  
   return (
-    <CoursesContext.Provider value={{ user, logIn, logOut, coursesData }}>
+    <CoursesContext.Provider value={coursesData}>
       {children}
     </CoursesContext.Provider>
   );

@@ -6,21 +6,21 @@ import Logo from "./components/Logo/Logo";
 import "./Header.css";
 
 export default function Header() {
-  const auth = useCoursesContext();
+  const { user, logOut } = useCoursesContext();
   const history = useHistory();
 
   function handleLogout() {
     logoutUser();
-    auth.logOut();
+    logOut();
     history.replace("/");
   }
 
   return (
     <header className="header">
       <Logo />
-      {auth.user && (
+      {user && (
         <div className="user-info">
-          <span className="user-name">{auth.user.name}</span>
+          <span className="user-name">{user.name}</span>
           <Button buttonText="Logout" onClick={handleLogout} />
         </div>
       )}

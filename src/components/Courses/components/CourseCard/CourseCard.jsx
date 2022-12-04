@@ -1,10 +1,26 @@
-import Button from '../../../../common/Button/Button';
-import { pipeDuration } from '../../../../helpers/pipeDuration';
-import { dateGenerator } from '../../../../helpers/dateGenerator';
-import { mockedAuthorsList } from '../../../../constants';
-import './CourseCard.css';
+import { dateGenerator } from "../../../../helpers/dateGenerator";
+import { pipeDuration } from "../../../../helpers/pipeDuration";
+import { useCoursesContext } from "../../../../context/Courses";
+import Button from "../../../../common/Button/Button";
+import "./CourseCard.css";
 
-export default function CourseCard({ course, authorsList }) {
+export default function CourseCard({ course }) {
+  const { authors } = useCoursesContext();
+  let string = "";
+
+  const authorsArr = authors.map((author) =>
+    course.authors.includes(author.id) ? " " + author.name : ""
+  );
+
+  authorsArr.map((author) => {
+    string += author;
+  });
+
+  let sliced = string.slice(0, 30);
+  if (sliced.length < string.length) {
+    sliced += "...";
+  }
+
   return (
     <>
       <section className="course-card">
@@ -16,11 +32,11 @@ export default function CourseCard({ course, authorsList }) {
           <ul className="course-info-list">
             <li>
               <span className="course-info">Authors:</span>
-              {authorsList.map(author => course.authors.includes(author.id) ? ' ' + author.name : '')}
+              {sliced}
             </li>
             <li>
               <span className="course-info">Duration: </span>
-              {pipeDuration(course.duration) + ' hours'}
+              {pipeDuration(course.duration) + " hours"}
             </li>
             <li>
               <span className="course-info">Created: </span>
