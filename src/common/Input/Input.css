@@ -1,0 +1,29 @@
+.input {
+    padding: 10px 15px;
+    font-weight: 600;
+    border: 2px solid #ffa600;
+    background: transparent;
+    transition: .2s;
+}
+.input:focus {
+    outline: none;
+}
+
+.search-input {
+    margin-right: 15px;
+    min-width: 300px;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.create-description-label {
+    margin: 20px 0;
+}
+
+.create-description-input {
+    min-height: 150px;
+}

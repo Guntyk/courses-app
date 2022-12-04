@@ -1,0 +1,50 @@
+.details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    width: 50%;
+    /* border: 3px solid red; */
+}
+
+.creation-title {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.block {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.available-authors-list {
+    margin-bottom: 15px;
+    min-width: 300px;
+}
+
+.available-author {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.details {
+    border: 3px solid green;
+}
+
+.duration-result {
+    margin-top: 20px;
+    font-size: 25px;
+}
+
+.time {
+    font-size: 35px;
+    font-weight: 600;
+}

@@ -1,0 +1,14 @@
+.column {
+    margin: 10% auto 0 auto;
+}
+
+.registration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.registration-btn {
+    margin: 20px 0;
+}
