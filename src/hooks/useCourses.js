@@ -12,11 +12,14 @@ import {
 } from "../api/requests";
 
 export function useCourses() {
-  const token = JSON.parse(localStorage.getItem("userToken"));
+  const history = useHistory();
   const [authors, setAuthors] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [user, setUser] = useState({});
-  const history = useHistory();
+  const [searchQuery, setSearchQuery] = useState("");
+  const token = JSON.parse(localStorage.getItem("userToken"));
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || {}
+  );
 
   useEffect(() => {
     // Courses Getting
@@ -44,11 +47,9 @@ export function useCourses() {
     registerUser(userObj).then(([registrationErr, registeredUser]) => {
       if (registeredUser) {
         login(userObj);
-        setUser(userObj);
-        history.replace("/login");
       } else {
         console.log(registrationErr);
-        alert("This user is already exist");
+        alert("Registration error");
         history.replace("/login");
       }
     });
@@ -58,8 +59,8 @@ export function useCourses() {
     loginUser(userObj).then(([loginErr, loggedUser]) => {
       if (loggedUser) {
         localStorage.setItem("userToken", JSON.stringify(loggedUser.result));
+        localStorage.setItem("user", JSON.stringify(userObj));
         setUser(userObj);
-        console.log(loggedUser);
         history.replace("/courses");
       } else {
         console.log(loginErr);
@@ -72,6 +73,7 @@ export function useCourses() {
     logoutUser(token).then(([logoutErr]) => {
       if (!logoutErr) {
         localStorage.removeItem("userToken");
+        localStorage.removeItem("user");
         setUser({});
         history.replace("/login");
       } else {
@@ -104,7 +106,7 @@ export function useCourses() {
       }
     });
   };
-  
+
   function searchCourses(query) {
     getCourses({ q: query }).then(([coursesErr, courses]) => {
       if (courses) {
@@ -129,7 +131,9 @@ export function useCourses() {
     setUser,
     register,
     addCourse,
+    searchQuery,
     removeCourse,
     searchCourses,
+    setSearchQuery,
   };
 }

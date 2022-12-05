@@ -2,17 +2,15 @@ import CourseCard from "./components/CourseCard/CourseCard";
 import { useCoursesContext } from "../../context/Courses";
 import SearchBar from "./components/SearchBar/SearchBar";
 import Button from "../../common/Button/Button";
-import { useState } from "react";
 import "./Courses.css";
 
 export default function Courses() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const { courses } = useCoursesContext();
+  const { courses, searchQuery } = useCoursesContext();
 
   return (
     <>
       <div className="row">
-        <SearchBar setSearchQuery={setSearchQuery} />
+        <SearchBar />
         <Button buttonText="Add new course" onClick={() => {}} />
       </div>
       <article className="courses">

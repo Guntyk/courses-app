@@ -6,10 +6,6 @@ import "./Header.css";
 export default function Header() {
   const { user, logout, token } = useCoursesContext();
 
-  // function handleLogout() {
-  //   logout();
-  // }
-
   return (
     <header className="header">
       <Logo />
