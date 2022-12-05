@@ -1,27 +1,36 @@
 import { useCoursesContext } from "../../context/Courses";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../../common/Button/Button";
 import Input from "../../common/Input/Input";
 import "./Login.css";
 
 export default function Login() {
   const { login } = useCoursesContext();
-  const history = useHistory();
 
   function handleSubmit(e) {
     e.preventDefault();
     const user = {
+      name: e.target.name.value.trim(),
       email: e.target.email.value.trim(),
       password: e.target.password.value.trim(),
     };
     login(user);
-    history.replace("/");
+    e.target.name.value = "";
+    e.target.email.value = "";
+    e.target.password.value = "";
   }
 
   return (
     <div className="column">
       <form className="login" onSubmit={handleSubmit}>
         <h1 className="title">Login</h1>
+        <Input
+          labelText="Name"
+          placeholderText="Enter name"
+          name="name"
+          minLength="2"
+          required
+        />
         <Input
           placeholderText="Enter email"
           labelText="Email"

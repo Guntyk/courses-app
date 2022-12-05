@@ -1,12 +1,11 @@
 import { useCoursesContext } from "../../context/Courses";
-import { Link, useHistory } from "react-router-dom";
 import Button from "../../common/Button/Button";
 import Input from "../../common/Input/Input";
+import { Link } from "react-router-dom";
 import "./Registration.css";
 
 export default function Registration() {
-  const history = useHistory();
-  const { user, register, setUser } = useCoursesContext();
+  const { register } = useCoursesContext();
   function handleSubmit(e) {
     e.preventDefault();
     const user = {
@@ -15,15 +14,10 @@ export default function Registration() {
       password: e.target.password.value.trim(),
     };
     register(user);
-    console.log(register(user));
-    setUser(user);
     e.target.name.value = "";
-    // history.replace("/");
+    e.target.email.value = "";
+    e.target.password.value = "";
   }
-
-  // if (user) {
-  //   history.goBack();
-  // }
 
   return (
     <div className="column">

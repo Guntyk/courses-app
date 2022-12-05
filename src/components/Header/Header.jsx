@@ -1,27 +1,22 @@
-import { logoutUser } from "../../api/requests";
-import Button from "../../common/Button/Button";
-import { useHistory } from "react-router-dom";
 import { useCoursesContext } from "../../context/Courses";
+import Button from "../../common/Button/Button";
 import Logo from "./components/Logo/Logo";
 import "./Header.css";
 
 export default function Header() {
-  const { user, logOut } = useCoursesContext();
-  const history = useHistory();
+  const { user, logout, token } = useCoursesContext();
 
-  function handleLogout() {
-    logoutUser();
-    logOut();
-    // history.replace("/");
-  }
+  // function handleLogout() {
+  //   logout();
+  // }
 
   return (
     <header className="header">
       <Logo />
-      {user && (
+      {token && (
         <div className="user-info">
           <span className="user-name">{user.name}</span>
-          <Button buttonText="Logout" onClick={handleLogout} />
+          <Button buttonText="Logout" onClick={logout} />
         </div>
       )}
     </header>

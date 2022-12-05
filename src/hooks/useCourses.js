@@ -8,12 +8,14 @@ import {
   getAuthors,
   registerUser,
   loginUser,
+  logoutUser,
 } from "../api/requests";
 
 export function useCourses() {
+  const token = JSON.parse(localStorage.getItem("userToken"));
   const [authors, setAuthors] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const history = useHistory();
 
   useEffect(() => {
@@ -39,30 +41,44 @@ export function useCourses() {
 
   // ===== User Start =====
   const register = (userObj) => {
-    registerUser(userObj).then(([registrationError, registeredUser]) => {
+    registerUser(userObj).then(([registrationErr, registeredUser]) => {
       if (registeredUser) {
         login(userObj);
-        history.replace("/");
+        setUser(userObj);
+        history.replace("/login");
       } else {
-        console.log(registrationError);
+        console.log(registrationErr);
         alert("This user is already exist");
+        history.replace("/login");
       }
     });
   };
 
   const login = (userObj) => {
-    loginUser(userObj).then(([loginError, loggedUser]) => {
+    loginUser(userObj).then(([loginErr, loggedUser]) => {
       if (loggedUser) {
+        localStorage.setItem("userToken", JSON.stringify(loggedUser.result));
         setUser(userObj);
+        console.log(loggedUser);
+        history.replace("/courses");
       } else {
-        console.log(loginError);
+        console.log(loginErr);
         alert("Login error");
       }
     });
   };
 
-  const logOut = () => {
-    setUser(null);
+  const logout = () => {
+    logoutUser(token).then(([logoutErr]) => {
+      if (!logoutErr) {
+        localStorage.removeItem("userToken");
+        setUser({});
+        history.replace("/login");
+      } else {
+        console.log(logoutErr);
+        alert("Logout error");
+      }
+    });
   };
   // ===== User End =====
   // ===== Courses Start =====
@@ -76,6 +92,7 @@ export function useCourses() {
       }
     });
   };
+
   const removeCourse = (id) => {
     deleteCourse(id).then(([deleteError]) => {
       if (deleteError) {
@@ -87,6 +104,7 @@ export function useCourses() {
       }
     });
   };
+  
   function searchCourses(query) {
     getCourses({ q: query }).then(([coursesErr, courses]) => {
       if (courses) {
@@ -103,14 +121,15 @@ export function useCourses() {
 
   return {
     user,
+    login,
+    token,
+    logout,
     authors,
     courses,
     setUser,
-    addCourse,
-    searchCourses,
-    removeCourse,
     register,
-    login,
-    logOut,
+    addCourse,
+    removeCourse,
+    searchCourses,
   };
 }
