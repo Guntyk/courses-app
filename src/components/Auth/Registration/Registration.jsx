@@ -24,7 +24,7 @@ export default function Registration() {
       {token ? (
         <Redirect to="/courses" />
       ) : (
-        <div className="column">
+        <div className="auth-column">
           <form className="registration" onSubmit={handleSubmit}>
             <h1 className="title">Registration</h1>
             <Input

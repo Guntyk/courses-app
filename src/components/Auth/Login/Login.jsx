@@ -25,7 +25,7 @@ export default function Login() {
       {token ? (
         <Redirect to="/courses" />
       ) : (
-        <div className="column">
+        <div className="auth-column">
           <form className="login" onSubmit={handleSubmit}>
             <h1 className="title">Login</h1>
             <Input
