@@ -1,0 +1,30 @@
+.home-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 300px;
+  height: 80px;
+  /* padding: 10px 25px; */
+  color: #af00af;
+  font-size: 30px;
+  font-weight: 600;
+  border: 2px solid #af00af;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.2s;
+  transform: translateX(-50%);
+}
+
+.home-link:hover {
+  color: #fff;
+  outline: none;
+  border-radius: 5px;
+  background: #af00af;
+}
+
+.home-link:active {
+  transform: translateX(-50%) scale(0.95);
+}
