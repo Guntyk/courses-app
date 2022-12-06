@@ -1,0 +1,17 @@
+.course-title {
+    margin: 5px 0 50px 0;
+    text-align: center;
+}
+
+.information {
+    display: flex;
+    justify-content: space-between;
+}
+
+.detail-information {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 170px;
+    gap: 5px;
+}

@@ -2,12 +2,14 @@ import { dateGenerator } from "../../../../helpers/dateGenerator";
 import { pipeDuration } from "../../../../helpers/pipeDuration";
 import { useCoursesContext } from "../../../../context/Courses";
 import Button from "../../../../common/Button/Button";
+import { useHistory } from "react-router-dom";
 import "./CourseCard.css";
 
 export default function CourseCard({ course }) {
   const { authors } = useCoursesContext();
+  const history = useHistory();
   let string = "";
-
+  
   const authorsArr = authors.map((author) =>
     course.authors.includes(author.id) ? " " + author.name : ""
   );
@@ -43,7 +45,12 @@ export default function CourseCard({ course }) {
               {dateGenerator(course.creationDate)}
             </li>
           </ul>
-          <Button buttonText="Show course" />
+          <Button
+            buttonText="Show course"
+            onClick={() => {
+              history.push("/courses/" + course.id);
+            }}
+          />
         </div>
       </section>
     </>

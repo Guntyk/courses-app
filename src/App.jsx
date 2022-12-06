@@ -1,3 +1,4 @@
+import CourseInfo from "./components/Main/CourseInfo/CourseInfo";
 import CreateCourse from "./components/Main/CreateCourse/CreateCourse";
 import Registration from "./components/Auth/Registration/Registration";
 import { Switch, Route, Redirect } from "react-router-dom";
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route exact path="/courses/add">
             <CreateCourse />
+          </Route>
+          <Route exact path="/courses/:courseId">
+            <CourseInfo />
           </Route>
           <Route>
             <NotFound />
