@@ -1,6 +1,6 @@
 import { useCoursesContext } from "../../context/Courses";
 import Button from "../../common/Button/Button";
-import Logo from "./components/Logo/Logo";
+import Logo from "./Logo/Logo";
 import "./Header.css";
 
 export default function Header() {

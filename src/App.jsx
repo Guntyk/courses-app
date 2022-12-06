@@ -1,10 +1,10 @@
-import CreateCourse from "./components/CreateCourse/CreateCourse";
-import Registration from "./components/Registration/Registration";
+import CreateCourse from "./components/Main/CreateCourse/CreateCourse";
+import Registration from "./components/Auth/Registration/Registration";
 import { Switch, Route, Redirect } from "react-router-dom";
-import Courses from "./components/Courses/Courses";
-import Header from "./components/Header/Header";
-import Login from "./components/Login/Login";
 import { useCoursesContext } from "./context/Courses";
+import Courses from "./components/Main/Courses/Courses";
+import Header from "./components/Header/Header";
+import Login from "./components/Auth/Login/Login";
 
 function App() {
   return (
@@ -18,10 +18,10 @@ function App() {
       </Route>
       <RequireAuthRoute>
         <Switch>
-          <Route path="/courses">
+          <Route exact path="/courses">
             <Courses />
           </Route>
-          <Route path="/create-course">
+          <Route path="/courses/add">
             <CreateCourse />
           </Route>
         </Switch>
@@ -34,8 +34,6 @@ export default App;
 
 function RequireAuthRoute({ children }) {
   const { token } = useCoursesContext();
-  if (!token) {
-    return <Redirect to="/login" />;
-  }
+  if (!token) return <Redirect to="/login" />;
   return children;
 }

@@ -1,153 +1,127 @@
-import { pipeDuration } from '../../helpers/pipeDuration';
-import Button from '../../common/Button/Button';
-import Input from '../../common/Input/Input';
-import { useState } from 'react';
-import './CreateCourse.css';
-import { v4 } from 'uuid';
+import { useCoursesContext } from "../../../context/Courses";
+import { pipeDuration } from "../../../helpers/pipeDuration";
+import Button from "../../../common/Button/Button";
+import { useHistory } from "react-router-dom";
+import Input from "../../../common/Input/Input";
+import { useState } from "react";
+import "./CreateCourse.css";
 
-export default function CreateCourse({
-  setCoursesList,
-  authorsList,
-  setAuthorsList,
-  setAddNewCourse
-}) {
-  const [courseAuthorsList, setCourseAuthorsList] = useState([]);
-
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+export default function CreateCourse() {
+  const history = useHistory();
+  const { addCourse, setCourses, authors, setAuthors } = useCoursesContext();
+  const [courseAuthors, setCourseAuthors] = useState([]);
 
   const [duration, setDuration] = useState(0);
-  const [authorName, setAuthorName] = useState('');
 
   function createCourse(e) {
     e.preventDefault();
-    if (courseAuthorsList.length === 0 || duration === 0) {
-      alert('Please, fill in all fields');
+    console.log(courseAuthors)
+    const newCourse = {
+      title: e.target.title.value.trim(),
+      description: e.target.description.value.trim(),
+      duration: Number(duration),
+      authors: courseAuthors,
+    };
+    if (authors.length === 0 || duration === 0) {
+      alert("Please, fill in all fields");
       return;
     }
-    const newCourse = {
-      id: v4(),
-      title,
-      description,
-      creationDate: new Date().toLocaleDateString(),
-      duration,
-      authors: courseAuthorsList.map((author) => author.id)
-    };
-    setCoursesList((prevCourses) => [...prevCourses, newCourse]);
-    setAddNewCourse(false);
+    addCourse(newCourse);
+    history.goBack();
   }
 
+  // ===== Authors Start =====
   function createAuthor(e) {
     e.preventDefault();
     const newAuthor = {
-      id: v4(),
-      name: authorName
+      // id: v4(),
+      name: e.target.name.value.trim(),
     };
-    setAuthorsList((prevAuthorsList) => [...prevAuthorsList, newAuthor]);
-    setAuthorName('');
+    // setAuthorsList((prevAuthorsList) => [...prevAuthorsList, newAuthor]);
   }
 
   const addCourseAuthor = (author) => {
-    setCourseAuthorsList((prevCoursesAuthorsList) => [
-      ...prevCoursesAuthorsList,
-      author
-    ]);
-    setAuthorsList(
-      authorsList.filter((authorBase) => author.id !== authorBase.id)
-    );
+    setCourseAuthors((prevCoursesAuthors) => [...prevCoursesAuthors, author]);
+    setAuthors(authors.filter((authorBase) => author.id !== authorBase.id));
   };
 
   const removeCourseAuthor = (author) => {
-    setAuthorsList((prevAuthorsList) => [...prevAuthorsList, author]);
-    setCourseAuthorsList(
-      courseAuthorsList.filter((authorBase) => author.id !== authorBase.id)
+    setAuthors((prevAuthors) => [...prevAuthors, author]);
+    setCourseAuthors(
+      courseAuthors.filter((authorBase) => author.id !== authorBase.id)
     );
   };
+  // ===== Authors End =====
 
   return (
     <>
       <form onSubmit={createCourse}>
         <div className="row">
           <Input
-            labelText="Title"
             placeholderText="Enter title..."
-            value={title}
-            name="title"
+            labelText="Title"
             minLength="2"
-            onChange={(e) => {
-              setTitle(e.target.value.trim());
-            }}
+            name="title"
             required
           />
           <Button
-            buttonText="Create course"
             className="create-course-btn"
+            buttonText="Create course"
             type="submit"
           />
         </div>
         <Input
-          labelText="Description"
-          placeholderText="Enter description"
           labelClassName="create-description-label"
           inputClassName="create-description-input"
-          textarea
+          placeholderText="Enter description"
+          labelText="Description"
           name="description"
-          value={description}
-          onChange={(e) => {
-            setDescription(e.target.value);
-          }}
+          textarea
           required
         />
       </form>
       <div className="details">
-        <div className="column">
+        <div className="create-column">
           <form className="block add-author" onSubmit={createAuthor}>
             <h3 className="creation-title">Add author</h3>
             <Input
-              labelText="Author name"
               placeholderText="Enter author name..."
-              min="2"
+              labelText="Author name"
               name="authorName"
-              value={authorName}
-              onChange={(e) => {
-                setAuthorName(e.target.value.trim());
-              }}
               required
+              min="2"
             />
             <Button
-              buttonText="Create author"
               className="create-author-button"
+              buttonText="Create author"
               type="submit"
             />
           </form>
           <div className="block duration">
             <h3 className="creation-title">Duration</h3>
             <Input
-              labelText="Duration"
               placeholderText="Enter duration in minutes..."
+              labelText="Duration"
               type="number"
-              value={duration}
-              onChange={(e) => {
-                setDuration(Number(e.target.value));
-              }}
+              onChange={(e) => {setDuration(e.target.value.trim())}}
               required
             />
             <span className="duration-result">
-              Duration:{' '}
+              Duration:{" "}
               <span className="time">
-                {duration ? pipeDuration(duration) : '00:00'}
-              </span>{' '}
+                {duration ? pipeDuration(duration) : "00:00"}
+              </span>{" "}
               hours
             </span>
           </div>
         </div>
-        <div className="column">
+        <div className="create-column">
           <h3 className="creation-title">Authors</h3>
           <ul className="available-authors-list">
-            {authorsList.length === 0 ? (
+            {authors.length === 0 ? (
               <span className="void">Authors list is empty</span>
             ) : (
-              authorsList.map((author) => (
+              authors.map((author) => (
                 <li className="available-author" key={author.id}>
                   <span className="name">{author.name}</span>
                   <Button
@@ -160,10 +134,10 @@ export default function CreateCourse({
           </ul>
           <h3 className="creation-title">Course authors</h3>
           <ul className="available-authors-list">
-            {courseAuthorsList.length === 0 ? (
+            {courseAuthors.length === 0 ? (
               <span className="void">Author list is empty</span>
             ) : (
-              courseAuthorsList.map((author) => (
+              courseAuthors.map((author) => (
                 <li className="available-author" key={author.id}>
                   <span className="name">{author.name}</span>
                   <Button

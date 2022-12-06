@@ -131,6 +131,8 @@ export function useCourses() {
     setUser,
     register,
     addCourse,
+    setAuthors,
+    setCourses,
     searchQuery,
     removeCourse,
     searchCourses,

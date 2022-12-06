@@ -1,17 +1,24 @@
-import CourseCard from "./components/CourseCard/CourseCard";
-import { useCoursesContext } from "../../context/Courses";
-import SearchBar from "./components/SearchBar/SearchBar";
-import Button from "../../common/Button/Button";
+import CourseCard from "./CourseCard/CourseCard";
+import { useCoursesContext } from "../../../context/Courses";
+import SearchBar from "./SearchBar/SearchBar";
+import Button from "../../../common/Button/Button";
+import { useHistory } from "react-router-dom";
 import "./Courses.css";
 
 export default function Courses() {
   const { courses, searchQuery } = useCoursesContext();
+  const history = useHistory();
 
   return (
     <>
       <div className="row">
         <SearchBar />
-        <Button buttonText="Add new course" onClick={() => {}} />
+        <Button
+          buttonText="Add new course"
+          onClick={() => {
+            history.push("/courses/add");
+          }}
+        />
       </div>
       <article className="courses">
         {courses.length === 0 ? (

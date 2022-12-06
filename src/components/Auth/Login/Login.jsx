@@ -1,7 +1,7 @@
-import { useCoursesContext } from "../../context/Courses";
+import { useCoursesContext } from "../../../context/Courses";
 import { Link, Redirect } from "react-router-dom";
-import Button from "../../common/Button/Button";
-import Input from "../../common/Input/Input";
+import Button from "../../../common/Button/Button";
+import Input from "../../../common/Input/Input";
 import "./Login.css";
 
 export default function Login() {
