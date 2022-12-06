@@ -9,9 +9,9 @@ export default function CourseCard({ course }) {
   const { authors } = useCoursesContext();
   const history = useHistory();
   let string = "";
-  
+
   const authorsArr = authors.map((author) =>
-    course.authors.includes(author.id) ? " " + author.name : ""
+    course.authors.includes(author.id) ? " " + author.name + "," : ""
   );
 
   authorsArr.map((author) => {
@@ -23,12 +23,16 @@ export default function CourseCard({ course }) {
     sliced += "...";
   }
 
+  let slicedDescription = course.description.slice(0, 400);
+  if (slicedDescription < course.description.length) {
+    slicedDescription += "...";
+  }
   return (
     <>
       <section className="course-card">
         <div className="course-about">
           <h2 className="title">{course.title}</h2>
-          <p className="description">{course.description}</p>
+          <p className="description">{slicedDescription}</p>
         </div>
         <div className="course-details">
           <ul className="course-info-list">

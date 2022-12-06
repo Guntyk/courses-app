@@ -17,8 +17,10 @@ export default function CourseInfo() {
       if (courseObj.id === courseId) {
         setCourses(courseObj);
       }
+      console.log(courseObj.authors.at(-1))
     });
   }, []);
+
 
   return (
     <>
@@ -45,9 +47,11 @@ export default function CourseInfo() {
               </li>
               <li>
                 <span className="course-info">Authors: </span>
-                {authors.map((author) =>
-                  course.authors.includes(author.id) ? " " + author.name : ""
-                )}
+                {authors.map((author) => {
+                  if (course.authors.includes(author.id)) {
+                    return " " + author.name + ",";
+                  }
+                })}
               </li>
             </ul>
           </div>
