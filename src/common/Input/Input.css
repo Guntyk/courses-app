@@ -1,29 +1,44 @@
 .input {
-    padding: 10px 15px;
-    font-weight: 600;
-    border: 2px solid #ffa600;
-    background: transparent;
-    transition: .2s;
+  margin-top: 5px;
+  width: 20rem;
+  height: 3.5rem;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  padding-left: 1.4rem;
+  box-shadow: var(--inner-shadow);
+  background: none;
+  font-family: inherit;
+  color: #000;
 }
+
+.input::placeholder {
+  color: var(--greyLight-3);
+}
+
 .input:focus {
-    outline: none;
+  outline: none;
+  box-shadow: var(--shadow);
 }
 
 .search-input {
-    margin-right: 15px;
-    min-width: 300px;
+  margin-right: 15px;
+  min-width: 300px;
 }
 
 .label {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: 500;
+  gap: 5px;
 }
 
 .create-description-label {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 .create-description-input {
-    min-height: 150px;
+  min-height: 150px;
 }

@@ -1,21 +1,24 @@
 import { useCoursesContext } from "../../../context/Courses";
 import { pipeDuration } from "../../../helpers/pipeDuration";
 import Button from "../../../common/Button/Button";
-import { useHistory } from "react-router-dom";
 import Input from "../../../common/Input/Input";
+import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import "./CreateCourse.css";
 
 export default function CreateCourse() {
   const history = useHistory();
-  const { addCourse, setCourses, authors, setAuthors } = useCoursesContext();
+  const { addCourse, setCourses, authors, setAuthors, addAuthor } = useCoursesContext();
   const [courseAuthors, setCourseAuthors] = useState([]);
-
+  const [authorsList, setAuthorsList] = useState([]);
   const [duration, setDuration] = useState(0);
+
+  if (authors.length !== 0 && authorsList.length === 0 && courseAuthors.length === 0) {
+    setAuthorsList([].concat(authors));
+  }
 
   function createCourse(e) {
     e.preventDefault();
-    console.log(courseAuthors)
     const newCourse = {
       title: e.target.title.value.trim(),
       description: e.target.description.value.trim(),
@@ -27,26 +30,27 @@ export default function CreateCourse() {
       return;
     }
     addCourse(newCourse);
-    history.goBack();
   }
 
   // ===== Authors Start =====
   function createAuthor(e) {
     e.preventDefault();
     const newAuthor = {
-      // id: v4(),
       name: e.target.name.value.trim(),
     };
-    // setAuthorsList((prevAuthorsList) => [...prevAuthorsList, newAuthor]);
+    e.target.name.value = "";
+    addAuthor(newAuthor)
   }
 
   const addCourseAuthor = (author) => {
     setCourseAuthors((prevCoursesAuthors) => [...prevCoursesAuthors, author]);
-    setAuthors(authors.filter((authorBase) => author.id !== authorBase.id));
+    setAuthorsList(
+      authorsList.filter((authorBase) => author.id !== authorBase.id)
+    );
   };
 
   const removeCourseAuthor = (author) => {
-    setAuthors((prevAuthors) => [...prevAuthors, author]);
+    setAuthorsList((prevAuthors) => [...prevAuthors, author]);
     setCourseAuthors(
       courseAuthors.filter((authorBase) => author.id !== authorBase.id)
     );
@@ -87,7 +91,7 @@ export default function CreateCourse() {
             <Input
               placeholderText="Enter author name..."
               labelText="Author name"
-              name="authorName"
+              name="name"
               required
               min="2"
             />
@@ -103,7 +107,9 @@ export default function CreateCourse() {
               placeholderText="Enter duration in minutes..."
               labelText="Duration"
               type="number"
-              onChange={(e) => {setDuration(e.target.value.trim())}}
+              onChange={(e) => {
+                setDuration(e.target.value.trim());
+              }}
               required
             />
             <span className="duration-result">
@@ -118,10 +124,10 @@ export default function CreateCourse() {
         <div className="create-column">
           <h3 className="creation-title">Authors</h3>
           <ul className="available-authors-list">
-            {authors.length === 0 ? (
+            {authorsList.length === 0 ? (
               <span className="void">Authors list is empty</span>
             ) : (
-              authors.map((author) => (
+              authorsList.map((author) => (
                 <li className="available-author" key={author.id}>
                   <span className="name">{author.name}</span>
                   <Button

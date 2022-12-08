@@ -50,7 +50,7 @@ export default function Registration() {
               required
             />
             <Button
-              className="registration-btn"
+              className="btn-primary registration-btn"
               buttonText="Registration"
               type="submit"
               required

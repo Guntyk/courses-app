@@ -19,7 +19,7 @@ export default function SearchBar() {
         placeholderText="Enter course name or id..."
         name="search"
       />
-      <Button buttonText="Search" type="submit" />
+      <Button className="btn-primary search-btn" buttonText="Search" type="submit" />
     </form>
   );
 }

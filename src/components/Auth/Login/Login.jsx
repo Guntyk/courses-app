@@ -50,7 +50,7 @@ export default function Login() {
               minLength="6"
               required
             />
-            <Button className="login-btn" type="submit" buttonText="Login" />
+            <Button className="btn-primary login-btn" type="submit" buttonText="Login" />
           </form>
           <span className="registration-link">
             If you not have an account you can{" "}

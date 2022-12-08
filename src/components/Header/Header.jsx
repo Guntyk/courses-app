@@ -8,13 +8,15 @@ export default function Header() {
 
   return (
     <header className="header">
-      <Logo />
-      {token && (
-        <div className="user-info">
-          <span className="user-name">{user.name}</span>
-          <Button buttonText="Logout" onClick={logout} />
-        </div>
-      )}
+      <div className="wrapper">
+        <Logo />
+        {token && (
+          <div className="user-info">
+            <span className="user-name">{user.name}</span>
+            <Button className="btn-secondary logout-btn" buttonText="Logout" onClick={logout} />
+          </div>
+        )}
+      </div>
     </header>
   );
 }

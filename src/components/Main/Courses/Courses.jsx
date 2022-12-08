@@ -11,26 +11,29 @@ export default function Courses() {
 
   return (
     <>
-      <div className="row">
-        <SearchBar />
-        <Button
-          buttonText="Add new course"
-          onClick={() => {
-            history.push("/courses/add");
-          }}
-        />
-      </div>
-      <article className="courses">
-        {courses.length === 0 ? (
-          <h2>No courses yet</h2>
-        ) : (
-          courses
-            .filter((course) =>
-              course.title.toLowerCase().includes(searchQuery.toLowerCase())
-            )
-            .map((course) => <CourseCard course={course} key={course.id} />)
-        )}
-      </article>
+      <main className="main">
+        <div className="row">
+          <SearchBar />
+          <Button
+            className="btn-primary add-course-btn"
+            buttonText="Add new course"
+            onClick={() => {
+              history.push("/courses/add");
+            }}
+          />
+        </div>
+        <article className="courses">
+          {courses.length === 0 ? (
+            <h2>No courses yet</h2>
+          ) : (
+            courses
+              .filter((course) =>
+                course.title.toLowerCase().includes(searchQuery.toLowerCase())
+              )
+              .map((course) => <CourseCard course={course} key={course.id} />)
+          )}
+        </article>
+      </main>
     </>
   );
 }

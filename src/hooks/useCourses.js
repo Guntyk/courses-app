@@ -1,25 +1,23 @@
-import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useState, useEffect } from "react";
 import {
-  createCourse,
-  deleteCourse,
-  getCourse,
-  getCourses,
-  getAuthors,
-  registerUser,
   loginUser,
   logoutUser,
+  getAuthors,
+  getCourses,
+  createCourse,
+  deleteCourse,
+  createAuthor,
+  registerUser,
 } from "../api/requests";
 
 export function useCourses() {
-  const history = useHistory();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || {});
+  const token = JSON.parse(localStorage.getItem("userToken"));
+  const [searchQuery, setSearchQuery] = useState("");
   const [authors, setAuthors] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const token = JSON.parse(localStorage.getItem("userToken"));
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || {}
-  );
+  const history = useHistory();
 
   useEffect(() => {
     // Courses Getting
@@ -87,7 +85,8 @@ export function useCourses() {
   const addCourse = (courseObj) => {
     createCourse(courseObj).then(([createCourseError, createdCourse]) => {
       if (createdCourse) {
-        setCourses((prevCourses) => [...prevCourses, createdCourse]);
+        setCourses((prevCourses) => [...prevCourses, courseObj]);
+        history.push("/courses");
       } else {
         console.log(createCourseError);
         alert("Creating course error");
@@ -119,6 +118,16 @@ export function useCourses() {
   }
   // ===== Courses End =====
   // ===== Authors Start =====
+  const addAuthor = (authorObj) => {
+    createAuthor(authorObj).then(([createAuthorError, createdAuthor]) => {
+      if (createdAuthor) {
+        setAuthors((prevAuthors) => [...prevAuthors, authorObj]);
+      } else {
+        console.log(createAuthorError);
+        alert("Creating author error");
+      }
+    });
+  };
   // ===== Authors End =====
 
   return {
@@ -130,6 +139,7 @@ export function useCourses() {
     courses,
     setUser,
     register,
+    addAuthor,
     addCourse,
     setAuthors,
     setCourses,

@@ -10,34 +10,36 @@ import Header from "./components/Header/Header";
 
 function App() {
   return (
-    <div className="container">
+    <>
       <Header />
-      <Route exact path="/registration">
-        <Registration />
-      </Route>
-      <Route exact path="/login">
-        <Login />
-      </Route>
-      <RequireAuthRoute>
-        <Switch>
-          <Route exact path="/">
-            <Redirect to="/courses" />
-          </Route>
-          <Route exact path="/courses">
-            <Courses />
-          </Route>
-          <Route exact path="/courses/add">
-            <CreateCourse />
-          </Route>
-          <Route exact path="/courses/:courseId">
-            <CourseInfo />
-          </Route>
-          <Route>
-            <NotFound />
-          </Route>
-        </Switch>
-      </RequireAuthRoute>
-    </div>
+      <div className="container">
+        <Route exact path="/registration">
+          <Registration />
+        </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <RequireAuthRoute>
+          <Switch>
+            <Route exact path="/">
+              <Redirect to="/courses" />
+            </Route>
+            <Route exact path="/courses">
+              <Courses />
+            </Route>
+            <Route exact path="/courses/add">
+              <CreateCourse />
+            </Route>
+            <Route exact path="/courses/:courseId">
+              <CourseInfo />
+            </Route>
+            <Route>
+              <NotFound />
+            </Route>
+          </Switch>
+        </RequireAuthRoute>
+      </div>
+    </>
   );
 }
 

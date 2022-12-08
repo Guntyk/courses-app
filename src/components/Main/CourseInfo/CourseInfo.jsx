@@ -31,7 +31,7 @@ export default function CourseInfo() {
           <Link to="/courses">⇦ Back to courses</Link>
           <h1 className="course-title">{course.title}</h1>
           <div className="information">
-            <div className="description">{course.description}</div>
+            <div className="detail-description">{course.description}</div>
             <ul className="detail-information">
               <li>
                 <span className="course-info">ID: </span>

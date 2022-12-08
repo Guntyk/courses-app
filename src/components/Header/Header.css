@@ -1,19 +1,26 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100px;
+  height: 100px;
+  box-shadow: var(--shadow);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 1200px;
+  height: 100%;
 }
 
 .user-info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
 }
 
 .user-name {
-    margin-left: 50px;
-    font-size: 25px;
-    font-weight: 600;
+  margin-left: 50px;
+  font-size: 25px;
+  font-weight: 600;
 }

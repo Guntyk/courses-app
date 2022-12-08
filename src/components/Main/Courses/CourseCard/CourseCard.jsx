@@ -23,8 +23,8 @@ export default function CourseCard({ course }) {
     sliced += "...";
   }
 
-  let slicedDescription = course.description.slice(0, 400);
-  if (slicedDescription < course.description.length) {
+  let slicedDescription = course.description.slice(0, 500);
+  if (slicedDescription.length < course.description.length) {
     slicedDescription += "...";
   }
   return (
@@ -50,6 +50,7 @@ export default function CourseCard({ course }) {
             </li>
           </ul>
           <Button
+            className="btn-secondary show-course-btn"
             buttonText="Show course"
             onClick={() => {
               history.push("/courses/" + course.id);
