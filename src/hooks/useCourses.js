@@ -12,7 +12,9 @@ import {
 } from "../api/requests";
 
 export function useCourses() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || {});
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || {}
+  );
   const token = JSON.parse(localStorage.getItem("userToken"));
   const [searchQuery, setSearchQuery] = useState("");
   const [authors, setAuthors] = useState([]);
@@ -38,6 +40,10 @@ export function useCourses() {
         alert("Getting authors error");
       }
     });
+    // Login
+    if (token) {
+      login(user);
+    }
   }, []);
 
   // ===== User Start =====

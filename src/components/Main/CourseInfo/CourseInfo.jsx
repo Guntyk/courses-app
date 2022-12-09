@@ -17,10 +17,9 @@ export default function CourseInfo() {
       if (courseObj.id === courseId) {
         setCourses(courseObj);
       }
-      console.log(courseObj.authors.at(-1))
+      console.log(courseObj.authors.at(-1));
     });
   }, []);
-
 
   return (
     <>
@@ -28,32 +27,38 @@ export default function CourseInfo() {
         <Preloader />
       ) : (
         <>
-          <Link to="/courses">⇦ Back to courses</Link>
-          <h1 className="course-title">{course.title}</h1>
-          <div className="information">
-            <div className="detail-description">{course.description}</div>
-            <ul className="detail-information">
-              <li>
-                <span className="course-info">ID: </span>
-                {course.id}
-              </li>
-              <li>
-                <span className="course-info">Duration: </span>
-                {pipeDuration(course.duration) + " hours"}
-              </li>
-              <li>
-                <span className="course-info">Created: </span>
-                {dateGenerator(course.creationDate)}
-              </li>
-              <li>
-                <span className="course-info">Authors: </span>
-                {authors.map((author) => {
-                  if (course.authors.includes(author.id)) {
-                    return " " + author.name + ",";
-                  }
-                })}
-              </li>
-            </ul>
+          <Link className="back-link" to="/courses">⇦ Back to courses</Link>
+          <div className="course-all-info">
+            <div className="course-title-wrapper">
+              <h1 className="course-title">{course.title}</h1>
+            </div>
+            <div className="information">
+              <div className="detail-description">
+                <ul className="detail-information">
+                  <li>
+                    <span className="course-info">ID: </span>
+                    {course.id}
+                  </li>
+                  <li>
+                    <span className="course-info">Duration: </span>
+                    {pipeDuration(course.duration) + " hours"}
+                  </li>
+                  <li>
+                    <span className="course-info">Created: </span>
+                    {dateGenerator(course.creationDate)}
+                  </li>
+                  <li>
+                    <span className="course-info">Authors: </span>
+                    {authors.map((author) => {
+                      if (course.authors.includes(author.id)) {
+                        return " " + author.name + ",";
+                      }
+                    })}
+                  </li>
+                </ul>
+                {course.description}
+              </div>
+            </div>
           </div>
         </>
       )}

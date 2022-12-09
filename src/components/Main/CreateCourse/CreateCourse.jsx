@@ -8,12 +8,17 @@ import "./CreateCourse.css";
 
 export default function CreateCourse() {
   const history = useHistory();
-  const { addCourse, setCourses, authors, setAuthors, addAuthor } = useCoursesContext();
+  const { addCourse, setCourses, authors, setAuthors, addAuthor } =
+    useCoursesContext();
   const [courseAuthors, setCourseAuthors] = useState([]);
   const [authorsList, setAuthorsList] = useState([]);
   const [duration, setDuration] = useState(0);
 
-  if (authors.length !== 0 && authorsList.length === 0 && courseAuthors.length === 0) {
+  if (
+    authors.length !== 0 &&
+    authorsList.length === 0 &&
+    courseAuthors.length === 0
+  ) {
     setAuthorsList([].concat(authors));
   }
 
@@ -39,7 +44,7 @@ export default function CreateCourse() {
       name: e.target.name.value.trim(),
     };
     e.target.name.value = "";
-    addAuthor(newAuthor)
+    addAuthor(newAuthor);
   }
 
   const addCourseAuthor = (author) => {
@@ -59,7 +64,7 @@ export default function CreateCourse() {
 
   return (
     <>
-      <form onSubmit={createCourse}>
+      <form className="create-course-form" onSubmit={createCourse}>
         <div className="row">
           <Input
             placeholderText="Enter title..."
@@ -69,7 +74,7 @@ export default function CreateCourse() {
             required
           />
           <Button
-            className="create-course-btn"
+            className="btn-primary create-course-btn"
             buttonText="Create course"
             type="submit"
           />
@@ -77,7 +82,7 @@ export default function CreateCourse() {
         <Input
           labelClassName="create-description-label"
           inputClassName="create-description-input"
-          placeholderText="Enter description"
+          placeholderText="Enter description..."
           labelText="Description"
           name="description"
           textarea
@@ -89,6 +94,7 @@ export default function CreateCourse() {
           <form className="block add-author" onSubmit={createAuthor}>
             <h3 className="creation-title">Add author</h3>
             <Input
+              inputClassName="details-input"
               placeholderText="Enter author name..."
               labelText="Author name"
               name="name"
@@ -96,7 +102,7 @@ export default function CreateCourse() {
               min="2"
             />
             <Button
-              className="create-author-button"
+              className="btn-secondary create-author-button"
               buttonText="Create author"
               type="submit"
             />
@@ -104,6 +110,7 @@ export default function CreateCourse() {
           <div className="block duration">
             <h3 className="creation-title">Duration</h3>
             <Input
+              inputClassName="details-input duration-input"
               placeholderText="Enter duration in minutes..."
               labelText="Duration"
               type="number"
@@ -131,7 +138,8 @@ export default function CreateCourse() {
                 <li className="available-author" key={author.id}>
                   <span className="name">{author.name}</span>
                   <Button
-                    buttonText="Add author"
+                    className="btn-secondary author-btn"
+                    buttonText="Add"
                     onClick={() => addCourseAuthor(author)}
                   />
                 </li>
@@ -147,7 +155,8 @@ export default function CreateCourse() {
                 <li className="available-author" key={author.id}>
                   <span className="name">{author.name}</span>
                   <Button
-                    buttonText="Delete author"
+                    className="btn-secondary author-btn"
+                    buttonText="Delete"
                     onClick={() => removeCourseAuthor(author)}
                   />
                 </li>

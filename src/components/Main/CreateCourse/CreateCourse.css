@@ -1,50 +1,84 @@
 .details {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .create-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    width: 50%;
-    /* border: 3px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  width: 50%;
 }
 
 .creation-title {
-    margin-bottom: 15px;
-    text-align: center;
+  margin-bottom: 1em;
+  font-size: 1.6em;
+  font-weight: 500;
+  text-align: center;
+}
+
+.create-description-input {
+  padding-top: 1em;
+  width: 100%;
+  resize: vertical;
 }
 
 .block {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .available-authors-list {
-    margin-bottom: 15px;
-    min-width: 300px;
+  margin-bottom: 1em;
+  min-width: 13vw;
 }
 
 .available-author {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: .3em 0;
+}
+
+.details-input {
+  width: 100%;
 }
 
 .details {
-    border: 3px solid green;
+  margin-bottom: 3em;
+  padding: 2em;
+  border-radius: 1em;
+  box-shadow: var(--inner-shadow);
 }
 
 .duration-result {
-    margin-top: 20px;
-    font-size: 25px;
+  margin-top: 1.25em;
+  color: var(--greyLight-4);
+  font-size: 1.5em;
 }
 
 .time {
-    font-size: 35px;
-    font-weight: 600;
+  color: #000;
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+.create-course-form {
+  margin-top: 1.8em;
+}
+
+.duration-input::-webkit-inner-spin-button,
+.duration-input::-webkit-outer-spin-button {
+  appearance: none;
+}
+
+.name {
+  margin-right: 3em;
+  font-size: 1.3em;
+}
+
+.void {
+  color: var(--greyLight-4);
 }

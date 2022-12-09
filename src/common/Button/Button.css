@@ -53,11 +53,6 @@
   font-size: 1.35rem;
 }
 
-.create-author-button {
-  margin: 15px 0 80px 0;
-  align-self: center;
-}
-
 .add-course-btn > p {
   letter-spacing: 1px;
 }
@@ -81,4 +76,27 @@
 
 .show-course-btn > p {
   font-size: 1.1rem;
+}
+
+.create-author-button {
+  margin: 1rem 0 5rem 0;
+  width: 12rem;
+  height: 3rem;
+  align-self: center;
+}
+
+.create-author-button > p {
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+}
+
+.author-btn {
+  margin: .3rem 0;
+  width: 5rem;
+  height: 2.5rem;
+}
+
+.author-btn > p {
+  font-size: 1.3rem;
+  letter-spacing: 0;
 }
