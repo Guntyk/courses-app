@@ -27,7 +27,7 @@ export default function CourseInfo() {
         <Preloader />
       ) : (
         <>
-          <Link className="back-link" to="/courses">⇦ Back to courses</Link>
+          <Link className="back-link" to="/courses">˂ Back to courses</Link>
           <div className="course-all-info">
             <div className="course-title-wrapper">
               <h1 className="course-title">{course.title}</h1>

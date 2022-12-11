@@ -1,4 +1,10 @@
 .logo {
-    max-height: 70%;
-    width: auto;
+    width: 310px;
+    height: 100%;
+    cursor: pointer;
+}
+
+.logo > svg {
+    max-height: 100%;
+    max-width: 100%;
 }
