@@ -13,7 +13,11 @@ export default function Header() {
         {token && (
           <div className="user-info">
             <span className="user-name">{user.name}</span>
-            <Button className="btn-secondary logout-btn" buttonText="Logout" onClick={logout} />
+            <Button
+              className="btn-secondary logout-btn"
+              buttonText="Logout"
+              onClick={logout}
+            />
           </div>
         )}
       </div>

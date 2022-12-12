@@ -8,44 +8,36 @@ import "./CourseCard.css";
 export default function CourseCard({ course }) {
   const { authors } = useCoursesContext();
   const history = useHistory();
-  let string = "";
 
-  const authorsArr = authors.map((author) =>
-    course.authors.includes(author.id) ? " " + author.name + "," : ""
-  );
-
-  authorsArr.map((author) => {
-    string += author;
-  });
-
-  let sliced = string.slice(0, 30);
-  if (sliced.length < string.length) {
-    sliced += "...";
-  }
-
-  let slicedDescription = course.description.slice(0, 500);
-  if (slicedDescription.length < course.description.length) {
-    slicedDescription += "...";
-  }
   return (
     <>
       <section className="course-card">
         <div className="course-about">
-          <h2 className="title">{course.title}</h2>
-          <p className="description">{slicedDescription}</p>
+          <h2 className="title">
+            {course.title}
+          </h2>
+          <p className="description course-description">{course.description}</p>
         </div>
         <div className="course-details">
           <ul className="course-info-list">
             <li>
               <span className="course-info">Authors:</span>
-              {sliced}
+              <p className="course-authors">
+                {course.authors
+                  .map(
+                    (courseAuthorId) =>
+                      authors.find((author) => author.id === courseAuthorId)
+                        ?.name
+                  )
+                  .join(", ")}
+              </p>
             </li>
             <li>
-              <span className="course-info">Duration: </span>
+              <span className="course-info">Duration:</span>
               {pipeDuration(course.duration) + " hours"}
             </li>
             <li>
-              <span className="course-info">Created: </span>
+              <span className="course-info">Created:</span>
               {dateGenerator(course.creationDate)}
             </li>
           </ul>
@@ -53,7 +45,7 @@ export default function CourseCard({ course }) {
             className="btn-secondary show-course-btn"
             buttonText="Show course"
             onClick={() => {
-              history.push("/courses/" + course.id);
+              history.push(`/courses/${course.id}`);
             }}
           />
         </div>

@@ -28,7 +28,7 @@ export default function CreateCourse() {
       title: e.target.title.value.trim(),
       description: e.target.description.value.trim(),
       duration: Number(duration),
-      authors: courseAuthors,
+      authors: courseAuthors.map(courseAuthor => courseAuthor.id),
     };
     if (authors.length === 0 || duration === 0) {
       alert("Please, fill in all fields");

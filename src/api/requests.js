@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const coursesApi = axios.create({
-  baseURL: "http://localhost:4000/",
+  baseURL: "http://localhost:4000",
 });
 
 coursesApi.interceptors.response.use(
@@ -21,7 +21,11 @@ export const logoutUser = (token) =>
 export const getCourses = (params) =>
   coursesApi.get("/courses/all", { params });
 export const getCourse = (id) => coursesApi.get(`/courses/${id}`);
-export const createCourse = (data) => coursesApi.post(`/courses/add`, data);
+export const createCourse = (data) => coursesApi.post(`/courses/add`, data, {
+  headers: {
+    Authorization: window.localStorage.getItem('userToken')
+  }
+});
 export const deleteCourse = (id) => coursesApi.delete(`/courses/${id}`);
 
 //* Authors

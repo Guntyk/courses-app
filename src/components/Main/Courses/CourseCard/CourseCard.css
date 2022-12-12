@@ -18,11 +18,13 @@
 }
 
 .course-info-list > li {
+  display: flex;
   margin: 7px 0;
   color: var(--greyLight-4);
 }
 
 .course-info {
+  margin-right: 5px;
   color: #000;
   font-weight: 700;
 }
@@ -41,4 +43,19 @@
 
 .description {
   color: var(--greyLight-4);
+}
+
+.course-description,
+.course-authors {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.course-description {
+  -webkit-line-clamp: 6;
+}
+
+.course-authors {
+  -webkit-line-clamp: 1;
 }

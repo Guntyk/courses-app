@@ -15,7 +15,7 @@ export function useCourses() {
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("user")) || {}
   );
-  const token = JSON.parse(localStorage.getItem("userToken"));
+  const token = window.localStorage.getItem("userToken");
   const [searchQuery, setSearchQuery] = useState("");
   const [authors, setAuthors] = useState([]);
   const [courses, setCourses] = useState([]);
@@ -40,10 +40,6 @@ export function useCourses() {
         alert("Getting authors error");
       }
     });
-    // Login
-    if (token) {
-      login(user);
-    }
   }, []);
 
   // ===== User Start =====
@@ -62,7 +58,7 @@ export function useCourses() {
   const login = (userObj) => {
     loginUser(userObj).then(([loginErr, loggedUser]) => {
       if (loggedUser) {
-        localStorage.setItem("userToken", JSON.stringify(loggedUser.result));
+        localStorage.setItem("userToken", loggedUser.result);
         localStorage.setItem("user", JSON.stringify(userObj));
         setUser(userObj);
         history.replace("/courses");
@@ -89,9 +85,9 @@ export function useCourses() {
   // ===== User End =====
   // ===== Courses Start =====
   const addCourse = (courseObj) => {
-    createCourse(courseObj).then(([createCourseError, createdCourse]) => {
-      if (createdCourse) {
-        setCourses((prevCourses) => [...prevCourses, courseObj]);
+    createCourse(courseObj).then(([createCourseError, createdCourseData]) => {
+      if (createdCourseData) {
+        setCourses((prevCourses) => [...prevCourses, createdCourseData.result]);
         history.push("/courses");
       } else {
         console.log(createCourseError);

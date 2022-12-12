@@ -10,12 +10,10 @@ export default function Login() {
   function handleSubmit(e) {
     e.preventDefault();
     const loginUser = {
-      name: e.target.name.value.trim(),
       email: e.target.email.value.trim(),
       password: e.target.password.value.trim(),
     };
     login(loginUser);
-    e.target.name.value = "";
     e.target.email.value = "";
     e.target.password.value = "";
   }
@@ -28,13 +26,6 @@ export default function Login() {
         <div className="auth-column">
           <form className="login" onSubmit={handleSubmit}>
             <h1 className="title">Login</h1>
-            <Input
-              labelText="Name"
-              placeholderText="Enter name"
-              name="name"
-              minLength="2"
-              required
-            />
             <Input
               placeholderText="Enter email"
               labelText="Email"

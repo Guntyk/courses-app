@@ -1,11 +1,22 @@
-import { Link } from "react-router-dom";
-import './NotFound.css'
+import Button from "../../common/Button/Button";
+import { useHistory } from "react-router-dom";
+import "./NotFound.css";
 
 export default function NotFound() {
+  const { replace } = useHistory();
+
   return (
     <>
-      <h1>This page does not exist :(</h1>
-      <Link to="/courses" className="home-link">Go to main page</Link>
+      <div className="not-found">
+        <h1 className="not-found-title">This page does not exist :(</h1>
+        <Button
+          className="btn-primary"
+          buttonText="Home"
+          onClick={() => {
+            replace("/");
+          }}
+        />
+      </div>
     </>
   );
 }
