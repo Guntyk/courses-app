@@ -1,13 +1,14 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import { counterReducer } from "./counter/reducer";
-import thunk from "redux-thunk";
-import { coursesReducer } from "./courses/reducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { userDataReducer } from "./userData/reducer";
+import { counterReducer } from "./counter/reducer";
+import { coursesReducer } from "./courses/reducer";
+import { authorsReducer } from "./authors/reducer";
+import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
   courses: coursesReducer,
-  authors: () => [], //authorsReducer()
+  authors: authorsReducer,
   userData: userDataReducer,
   counter: counterReducer,
 });

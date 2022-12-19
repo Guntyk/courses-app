@@ -10,27 +10,33 @@ coursesApi.interceptors.response.use(
 );
 
 //* Auth
-export const loginUser = (data) => coursesApi.post(`/login`, data);
-export const registerUser = (data) => coursesApi.post(`/register`, data);
-export const logoutUser = (token) =>
+export const loginUserFetch = (data) => coursesApi.post(`/login`, data);
+export const registerUserFetch = (data) => coursesApi.post(`/register`, data);
+export const logoutUserFetch = (token) =>
   coursesApi.delete(`/logout`, {
     headers: { Authorization: token },
   });
 
 //* Courses
-export const getCourses = (params) =>
+export const getCoursesFetch = (params) =>
   coursesApi.get("/courses/all", { params });
-export const getCourse = (id) => coursesApi.get(`/courses/${id}`);
-export const createCourse = (data) => coursesApi.post(`/courses/add`, data, {
-  headers: {
-    Authorization: window.localStorage.getItem('userToken')
-  }
-});
-export const deleteCourse = (id) => coursesApi.delete(`/courses/${id}`);
+export const getCourseFetch = (id) => coursesApi.get(`/courses/${id}`);
+export const createCourseFetch = (data) =>
+  coursesApi.post(`/courses/add`, data, {
+    headers: {
+      Authorization: window.localStorage.getItem("userToken"),
+    },
+  });
+export const deleteCourseFetch = (id) => coursesApi.delete(`/courses/${id}`);
 
 //* Authors
-export const getAuthors = (params) =>
+export const getAuthorsFetch = (params) =>
   coursesApi.get("/authors/all", { params });
-export const getAuthor = (id) => coursesApi.get(`/authors/${id}`);
-export const createAuthor = (data) => coursesApi.post(`/authors/add`, data);
-export const deleteAuthor = (id) => coursesApi.delete(`/authors/${id}`);
+export const getAuthorFetch = (id) => coursesApi.get(`/authors/${id}`);
+export const createAuthorFetch = (data) =>
+  coursesApi.post(`/authors/add`, data, {
+    headers: {
+      Authorization: window.localStorage.getItem("userToken"),
+    },
+  });
+export const deleteAuthorFetch = (id) => coursesApi.delete(`/authors/${id}`);

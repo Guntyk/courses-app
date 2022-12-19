@@ -1,5 +1,6 @@
 import { coursesSelector } from "../../../redux/courses/selectors";
 import { useCoursesContext } from "../../../context/Courses";
+import { fetchAuthors } from "../../../redux/authors/thunk";
 import { fetchCourses } from "../../../redux/courses/thunk";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../../common/Button/Button";
@@ -18,6 +19,7 @@ export default function Courses() {
 
   useEffect(() => {
     dispatch(fetchCourses());
+    dispatch(fetchAuthors())
   }, []);
 
   return (

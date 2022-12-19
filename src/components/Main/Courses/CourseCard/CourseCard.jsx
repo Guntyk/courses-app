@@ -1,12 +1,13 @@
+import { authorsSelector } from "../../../../redux/authors/selectors";
 import { dateGenerator } from "../../../../helpers/dateGenerator";
 import { pipeDuration } from "../../../../helpers/pipeDuration";
-import { useCoursesContext } from "../../../../context/Courses";
 import Button from "../../../../common/Button/Button";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./CourseCard.css";
 
 export default function CourseCard({ course }) {
-  const { authors } = useCoursesContext();
+  const authors = useSelector(authorsSelector)
   const history = useHistory();
 
   return (
@@ -23,13 +24,13 @@ export default function CourseCard({ course }) {
             <li>
               <span className="course-info">Authors:</span>
               <p className="course-authors">
-                {/* {course.authors
+                {course.authors
                   .map(
                     (courseAuthorId) =>
                       authors.find((author) => author.id === courseAuthorId)
                         ?.name
                   )
-                  .join(", ")} */}
+                  .join(", ")}
               </p>
             </li>
             <li>

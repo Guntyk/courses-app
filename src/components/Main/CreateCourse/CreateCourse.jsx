@@ -1,5 +1,7 @@
-import { useCoursesContext } from "../../../context/Courses";
+import { fetchAuthors, createAuthor } from "../../../redux/authors/thunk";
+import { authorsSelector } from "../../../redux/authors/selectors";
 import { pipeDuration } from "../../../helpers/pipeDuration";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../../../common/Button/Button";
 import Input from "../../../common/Input/Input";
 import { useHistory } from "react-router-dom";
@@ -7,12 +9,17 @@ import { useState } from "react";
 import "./CreateCourse.css";
 
 export default function CreateCourse() {
-  const history = useHistory();
-  const { addCourse, setCourses, authors, setAuthors, addAuthor } =
-    useCoursesContext();
   const [courseAuthors, setCourseAuthors] = useState([]);
   const [authorsList, setAuthorsList] = useState([]);
+  const authors = useSelector(authorsSelector);
   const [duration, setDuration] = useState(0);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const token = window.localStorage.getItem("userToken")
+
+  if (authors.length === 0) {
+    dispatch(fetchAuthors());
+  }
 
   if (
     authors.length !== 0 &&
@@ -28,23 +35,23 @@ export default function CreateCourse() {
       title: e.target.title.value.trim(),
       description: e.target.description.value.trim(),
       duration: Number(duration),
-      authors: courseAuthors.map(courseAuthor => courseAuthor.id),
+      authors: courseAuthors.map((courseAuthor) => courseAuthor.id),
     };
     if (authors.length === 0 || duration === 0) {
       alert("Please, fill in all fields");
       return;
     }
-    addCourse(newCourse);
+    // addCourse(newCourse);
   }
 
-  // ===== Authors Start =====
-  function createAuthor(e) {
+  // ===== Authors Functions =====
+  function addAuthor(e) {
     e.preventDefault();
     const newAuthor = {
       name: e.target.name.value.trim(),
     };
     e.target.name.value = "";
-    addAuthor(newAuthor);
+    dispatch(createAuthor(newAuthor, token));
   }
 
   const addCourseAuthor = (author) => {
@@ -60,7 +67,6 @@ export default function CreateCourse() {
       courseAuthors.filter((authorBase) => author.id !== authorBase.id)
     );
   };
-  // ===== Authors End =====
 
   return (
     <>
@@ -91,7 +97,7 @@ export default function CreateCourse() {
       </form>
       <div className="details">
         <div className="create-column">
-          <form className="block add-author" onSubmit={createAuthor}>
+          <form className="block add-author" onSubmit={addAuthor}>
             <h3 className="creation-title">Add author</h3>
             <Input
               inputClassName="details-input"

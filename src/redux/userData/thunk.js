@@ -1,13 +1,13 @@
-import { loginUser, logoutUser, registerUser } from "../../api/requests";
 import {
-  loginAction,
-  logoutAction,
-  registrationAction,
-} from "./actionCreators";
+  loginUserFetch,
+  logoutUserFetch,
+  registerUserFetch,
+} from "../../api/requests";
+import { loginAction, logoutAction } from "./actionCreators";
 
 export function login(userObj, history) {
   return (dispatch) => {
-    loginUser(userObj).then(([loginErr, loggedUser]) => {
+    loginUserFetch(userObj).then(([loginErr, loggedUser]) => {
       if (loggedUser) {
         window.localStorage.setItem("userToken", loggedUser.result);
         window.localStorage.setItem(
@@ -26,7 +26,7 @@ export function login(userObj, history) {
 
 export function logout(token, history) {
   return (dispatch) => {
-    logoutUser(token).then(([logoutErr]) => {
+    logoutUserFetch(token).then(([logoutErr]) => {
       if (!logoutErr) {
         window.localStorage.removeItem("userToken");
         window.localStorage.removeItem("username");
@@ -42,7 +42,7 @@ export function logout(token, history) {
 
 export function register(userObj, history) {
   return (dispatch) => {
-    registerUser(userObj).then(([registrationErr, registeredUser]) => {
+    registerUserFetch(userObj).then(([registrationErr, registeredUser]) => {
       if (registeredUser) {
         console.log(userObj);
         console.log(registeredUser);

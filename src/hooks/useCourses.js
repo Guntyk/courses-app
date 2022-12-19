@@ -1,16 +1,13 @@
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
-import { getCourses, createCourse, deleteCourse } from "../api/requests";
+import { getCoursesFetch, createCourseFetch, deleteCourseFetch } from "../api/requests";
 
 export function useCourses() {
   const [searchQuery, setSearchQuery] = useState("");
   const [courses, setCourses] = useState([]);
-
-
   
-
   const removeCourse = (id) => {
-    deleteCourse(id).then(([deleteError]) => {
+    deleteCourseFetch(id).then(([deleteError]) => {
       if (deleteError) {
         console.log(deleteError);
         alert("Deleting course error!");
@@ -22,7 +19,7 @@ export function useCourses() {
   };
 
   function searchCourses(query) {
-    getCourses({ q: query }).then(([coursesErr, courses]) => {
+    getCoursesFetch({ q: query }).then(([coursesErr, courses]) => {
       if (courses) {
         console.log(courses)
         setCourses(courses);

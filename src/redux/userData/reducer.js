@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, REGISTRATION } from "./actionTypes";
+import { LOGIN, LOGOUT } from "./actionTypes";
 
 const defaultState = {
   isAuth: false,
@@ -18,8 +18,6 @@ export function userDataReducer(state = defaultState, action) {
       };
     case LOGOUT:
       return { ...action.payload };
-    case REGISTRATION:
-      return;
     default:
       return state;
   }
