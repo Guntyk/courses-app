@@ -1,11 +1,16 @@
 import { useCoursesContext } from "../../../context/Courses";
-import { Link, Redirect } from "react-router-dom";
+import { register } from "../../../redux/userData/thunk";
 import Button from "../../../common/Button/Button";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import Input from "../../../common/Input/Input";
+import { useDispatch } from "react-redux";
 import "./Registration.css";
 
 export default function Registration() {
-  const { register, token } = useCoursesContext();
+  const { token } = useCoursesContext();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   function handleSubmit(e) {
     e.preventDefault();
     const user = {
@@ -13,7 +18,7 @@ export default function Registration() {
       email: e.target.email.value.trim(),
       password: e.target.password.value.trim(),
     };
-    register(user);
+    dispatch(register(user, history));
     e.target.name.value = "";
     e.target.email.value = "";
     e.target.password.value = "";

@@ -1,14 +1,19 @@
+import { coursesSelector } from "../../../../redux/courses/selectors";
 import { useCoursesContext } from "../../../../context/Courses";
+import { fetchCourses } from "../../../../redux/courses/thunk";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../../../../common/Button/Button";
 import Input from "../../../../common/Input/Input";
 import "./SearchBar.css";
 
 export default function SearchBar() {
-  const { setSearchQuery } = useCoursesContext();
+  const { setSearchQuery, searchCourses } = useCoursesContext();
+  const dispatch = useDispatch();
 
   function handleSubmit(e) {
     e.preventDefault();
-    setSearchQuery(e.target.search.value.trim());
+    // dispatch(fetchCourses(e.target.search.value.trim()))
+    searchCourses(e.target.search.value.trim())
     e.target.search.value = "";
   }
 

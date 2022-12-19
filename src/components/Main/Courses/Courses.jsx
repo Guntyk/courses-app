@@ -1,13 +1,24 @@
-import CourseCard from "./CourseCard/CourseCard";
+import { coursesSelector } from "../../../redux/courses/selectors";
 import { useCoursesContext } from "../../../context/Courses";
-import SearchBar from "./SearchBar/SearchBar";
+import { fetchCourses } from "../../../redux/courses/thunk";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../../../common/Button/Button";
+import CourseCard from "./CourseCard/CourseCard";
+import SearchBar from "./SearchBar/SearchBar";
 import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
 import "./Courses.css";
 
 export default function Courses() {
-  const { courses, searchQuery } = useCoursesContext();
+  // const { searchQuery } = useCoursesContext();
+  const courses = useSelector(coursesSelector);
+  const dispatch = useDispatch();
   const history = useHistory();
+  const searchQuery = "";
+
+  useEffect(() => {
+    dispatch(fetchCourses());
+  }, []);
 
   return (
     <>

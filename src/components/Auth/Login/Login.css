@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin: 10% auto 0 auto;
+    margin-top: 10%;
 }
 
 .login {

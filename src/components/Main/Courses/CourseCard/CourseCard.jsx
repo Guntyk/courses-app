@@ -23,13 +23,13 @@ export default function CourseCard({ course }) {
             <li>
               <span className="course-info">Authors:</span>
               <p className="course-authors">
-                {course.authors
+                {/* {course.authors
                   .map(
                     (courseAuthorId) =>
                       authors.find((author) => author.id === courseAuthorId)
                         ?.name
                   )
-                  .join(", ")}
+                  .join(", ")} */}
               </p>
             </li>
             <li>

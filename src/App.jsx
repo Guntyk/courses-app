@@ -4,7 +4,6 @@ import Registration from './components/Auth/Registration/Registration';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Courses from './components/Main/Courses/Courses';
 import NotFound from './components/NotFound/NotFound';
-import { useCoursesContext } from './context/Courses';
 import Login from './components/Auth/Login/Login';
 import Header from './components/Header/Header';
 

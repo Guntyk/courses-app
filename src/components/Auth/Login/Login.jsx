@@ -1,11 +1,14 @@
-import { useCoursesContext } from "../../../context/Courses";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
+import { login } from "../../../redux/userData/thunk";
 import Button from "../../../common/Button/Button";
 import Input from "../../../common/Input/Input";
+import { useDispatch } from "react-redux";
 import "./Login.css";
 
 export default function Login() {
-  const { login, token } = useCoursesContext();
+  const token = window.localStorage.getItem("userToken");
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -13,7 +16,7 @@ export default function Login() {
       email: e.target.email.value.trim(),
       password: e.target.password.value.trim(),
     };
-    login(loginUser);
+    dispatch(login(loginUser, history));
     e.target.email.value = "";
     e.target.password.value = "";
   }
@@ -41,7 +44,11 @@ export default function Login() {
               minLength="6"
               required
             />
-            <Button className="btn-primary login-btn" type="submit" buttonText="Login" />
+            <Button
+              className="btn-primary login-btn"
+              type="submit"
+              buttonText="Login"
+            />
           </form>
           <span className="registration-link">
             If you not have an account you can{" "}
