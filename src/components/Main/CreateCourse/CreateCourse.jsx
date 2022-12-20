@@ -7,6 +7,7 @@ import Input from "../../../common/Input/Input";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import "./CreateCourse.css";
+import { useEffect } from "react";
 
 export default function CreateCourse() {
   const [courseAuthors, setCourseAuthors] = useState([]);
@@ -15,10 +16,16 @@ export default function CreateCourse() {
   const [duration, setDuration] = useState(0);
   const dispatch = useDispatch();
   const history = useHistory();
-  const token = window.localStorage.getItem("userToken")
+  const token = window.localStorage.getItem("userToken");
 
-  if (authors.length === 0) {
+  useEffect(() => {
+    updateAuthors();
+  }, []);
+
+  function updateAuthors() {
+    console.log("Update");
     dispatch(fetchAuthors());
+    setAuthorsList([].concat(authors));
   }
 
   if (
@@ -26,7 +33,7 @@ export default function CreateCourse() {
     authorsList.length === 0 &&
     courseAuthors.length === 0
   ) {
-    setAuthorsList([].concat(authors));
+    updateAuthors()
   }
 
   function createCourse(e) {
@@ -50,8 +57,10 @@ export default function CreateCourse() {
     const newAuthor = {
       name: e.target.name.value.trim(),
     };
+    console.log("Add");
     e.target.name.value = "";
     dispatch(createAuthor(newAuthor, token));
+    updateAuthors();
   }
 
   const addCourseAuthor = (author) => {
