@@ -44,8 +44,6 @@ export function register(userObj, history) {
   return (dispatch) => {
     registerUserFetch(userObj).then(([registrationErr, registeredUser]) => {
       if (registeredUser) {
-        console.log(userObj);
-        console.log(registeredUser);
         dispatch(login(userObj, history));
       } else {
         console.log(registrationErr);

@@ -5,7 +5,6 @@ export function fetchAuthors() {
   return (dispatch) => {
     getAuthorsFetch().then(([authorsErr, authors]) => {
       if (authors) {
-        console.log(authors.result);
         dispatch(getAuthorsAction(authors.result));
       } else {
         console.log(authorsErr);
@@ -17,7 +16,6 @@ export function fetchAuthors() {
 
 export function createAuthor(authorObj, token) {
   return (dispatch) => {
-    console.log(authorObj)
     createAuthorFetch(authorObj, token).then(([createAuthorError, createdAuthor]) => {
       if (createdAuthor) {
         dispatch(createAuthorAction(createdAuthor));

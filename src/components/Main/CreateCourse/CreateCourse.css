@@ -31,9 +31,9 @@
 }
 
 .available-authors-list {
-  padding: 10px 20px;
+  padding: 5px 20px;
   margin-bottom: 1em;
-  min-width: 13vw;
+  min-width: 25vw;
   height: 30vh;
   border-radius: 10px;
   overflow-x: hidden;
@@ -41,15 +41,9 @@
 }
 
 .available-authors-list::-webkit-scrollbar {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: .7em;
 }
 .available-authors-list::-webkit-scrollbar-track {
-  position: absolute;
-  top: 0;
-  left: 0;
   background: var(--greyLight-1);
 }
 .available-authors-list::-webkit-scrollbar-thumb {
@@ -103,5 +97,6 @@
 }
 
 .void {
+  font-size: 20px;
   color: var(--greyLight-4);
 }

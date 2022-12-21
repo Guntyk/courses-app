@@ -1,9 +1,19 @@
-import { createAuthorFetch, getAuthorsFetch } from "../api/requests";
-import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchAuthors } from "../redux/authors/thunk";
+
+// const dispatch = useDispatch();
 
 export function useAuthors() {
-  const [authors, setAuthors] = useState([]);
+  // function updateAuthors(setAuthorsList) {
+  //   console.log("Update");
+  //   dispatch(fetchAuthors());
+  //   console.log(authors);
+  //   setAuthorsList([].concat(authors));
+  //   // setTimeout(() => {
+  //   //   console.log(authors)
+  //   // }, 1000);
+  //   // clearTimeout()
+  // }
 
-
-  return authors, setAuthors;
+  // return updateAuthors;
 }

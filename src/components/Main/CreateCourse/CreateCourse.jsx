@@ -1,13 +1,14 @@
 import { fetchAuthors, createAuthor } from "../../../redux/authors/thunk";
 import { authorsSelector } from "../../../redux/authors/selectors";
 import { pipeDuration } from "../../../helpers/pipeDuration";
+import { createCourse } from "../../../redux/courses/thunk";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../../common/Button/Button";
 import Input from "../../../common/Input/Input";
 import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
 import { useState } from "react";
 import "./CreateCourse.css";
-import { useEffect } from "react";
 
 export default function CreateCourse() {
   const [courseAuthors, setCourseAuthors] = useState([]);
@@ -22,21 +23,15 @@ export default function CreateCourse() {
     updateAuthors();
   }, []);
 
-  function updateAuthors() {
-    console.log("Update");
-    dispatch(fetchAuthors());
-    setAuthorsList([].concat(authors));
-  }
-
   if (
     authors.length !== 0 &&
     authorsList.length === 0 &&
     courseAuthors.length === 0
   ) {
-    updateAuthors()
+    updateAuthors();
   }
 
-  function createCourse(e) {
+  function addCourse(e) {
     e.preventDefault();
     const newCourse = {
       title: e.target.title.value.trim(),
@@ -44,23 +39,27 @@ export default function CreateCourse() {
       duration: Number(duration),
       authors: courseAuthors.map((courseAuthor) => courseAuthor.id),
     };
-    if (authors.length === 0 || duration === 0) {
+    if (courseAuthors.length === 0 || duration === 0) {
       alert("Please, fill in all fields");
       return;
     }
-    // addCourse(newCourse);
+    dispatch(createCourse(newCourse, history));
   }
 
   // ===== Authors Functions =====
+  function updateAuthors() {
+    dispatch(fetchAuthors());
+    setAuthorsList([].concat(authors));
+  }
+
   function addAuthor(e) {
     e.preventDefault();
     const newAuthor = {
       name: e.target.name.value.trim(),
     };
-    console.log("Add");
-    e.target.name.value = "";
     dispatch(createAuthor(newAuthor, token));
-    updateAuthors();
+    setAuthorsList([].concat(authors));
+    e.target.name.value = "";
   }
 
   const addCourseAuthor = (author) => {
@@ -79,7 +78,7 @@ export default function CreateCourse() {
 
   return (
     <>
-      <form className="create-course-form" onSubmit={createCourse}>
+      <form className="create-course-form" onSubmit={addCourse}>
         <div className="row">
           <Input
             placeholderText="Enter title..."

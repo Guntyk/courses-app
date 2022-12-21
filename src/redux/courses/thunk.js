@@ -14,13 +14,12 @@ export function fetchCourses(query) {
   };
 }
 
-export function addCourse(courseObj) {
+export function createCourse(courseObj, history) {
   return (dispatch) => {
     createCourseFetch(courseObj).then(([createCourseError, createdCourseData]) => {
       if (createdCourseData) {
-        console.log(createdCourseData);
         dispatch(createCourseAction(createdCourseData.result));
-        // history.push("/courses");
+        history.push("/courses");
       } else {
         console.log(createCourseError);
         alert("Creating course error");

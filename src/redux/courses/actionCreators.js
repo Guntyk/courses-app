@@ -2,15 +2,11 @@ import {
   CREATE_COURSE,
   DELETE_COURSE,
   EDIT_COURSE,
-  GET_COURSE,
   GET_COURSES,
 } from "./actionTypes";
 
 export function getCoursesAction(payload) {
   return { type: GET_COURSES, payload };
-}
-export function getCourseAction(payload) {
-  return { type: GET_COURSE, payload };
 }
 export function createCourseAction(payload) {
   return { type: CREATE_COURSE, payload };
