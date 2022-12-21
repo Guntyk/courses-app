@@ -1,22 +1,22 @@
 import { authorsSelector } from "../../../../redux/authors/selectors";
 import { dateGenerator } from "../../../../helpers/dateGenerator";
 import { pipeDuration } from "../../../../helpers/pipeDuration";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../../../../common/Button/Button";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
 import "./CourseCard.css";
+import { deleteCourse } from "../../../../redux/courses/thunk";
 
 export default function CourseCard({ course }) {
-  const authors = useSelector(authorsSelector)
+  const authors = useSelector(authorsSelector);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   return (
     <>
       <section className="course-card">
         <div className="course-about">
-          <h2 className="title">
-            {course.title}
-          </h2>
+          <h2 className="title">{course.title}</h2>
           <p className="description course-description">{course.description}</p>
         </div>
         <div className="course-details">
@@ -42,13 +42,23 @@ export default function CourseCard({ course }) {
               {dateGenerator(course.creationDate)}
             </li>
           </ul>
-          <Button
-            className="btn-secondary show-course-btn"
-            buttonText="Show course"
-            onClick={() => {
-              history.push(`/courses/${course.id}`);
-            }}
-          />
+          <div className="course-card-btns">
+            <Button
+              className="btn-secondary show-course-btn"
+              buttonText="Show course"
+              onClick={() => {
+                history.push(`/courses/${course.id}`);
+              }}
+            />
+            <Button className="btn-secondary small-btn" editBtn />
+            <Button
+              className="btn-secondary small-btn"
+              deleteBtn
+              onClick={() => {
+                dispatch(deleteCourse(course.id));
+              }}
+            />
+          </div>
         </div>
       </section>
     </>

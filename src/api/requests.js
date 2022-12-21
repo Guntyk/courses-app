@@ -27,7 +27,12 @@ export const createCourseFetch = (data) =>
       Authorization: window.localStorage.getItem("userToken"),
     },
   });
-export const deleteCourseFetch = (id) => coursesApi.delete(`/courses/${id}`);
+export const deleteCourseFetch = (id) =>
+  coursesApi.delete(`/courses/${id}`, {
+    headers: {
+      Authorization: window.localStorage.getItem("userToken"),
+    },
+  });
 
 //* Authors
 export const getAuthorsFetch = (params) =>

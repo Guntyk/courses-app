@@ -16,7 +16,7 @@ export function coursesReducer(state = defaultState, action) {
     case EDIT_COURSE:
       return;
     case DELETE_COURSE:
-      return;
+      return state.filter((course) => course.id !== action.payload);
     default:
       return state;
   }

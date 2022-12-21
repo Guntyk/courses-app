@@ -19,7 +19,7 @@ export default function Courses() {
 
   useEffect(() => {
     dispatch(fetchCourses());
-    dispatch(fetchAuthors())
+    dispatch(fetchAuthors());
   }, []);
 
   return (

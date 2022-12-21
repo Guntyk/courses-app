@@ -1,5 +1,15 @@
-import { createCourseFetch, getCoursesFetch } from "../../api/requests";
-import { createCourseAction, getCoursesAction } from "./actionCreators";
+import {
+  createCourseAction,
+  deleteCoursesAction,
+  getCoursesAction,
+} from "./actionCreators";
+import { coursesSelector } from "./selectors";
+import { useSelector } from "react-redux";
+import {
+  createCourseFetch,
+  deleteCourseFetch,
+  getCoursesFetch,
+} from "../../api/requests";
 
 export function fetchCourses(query) {
   return (dispatch) => {
@@ -16,13 +26,28 @@ export function fetchCourses(query) {
 
 export function createCourse(courseObj, history) {
   return (dispatch) => {
-    createCourseFetch(courseObj).then(([createCourseError, createdCourseData]) => {
-      if (createdCourseData) {
-        dispatch(createCourseAction(createdCourseData.result));
-        history.push("/courses");
+    createCourseFetch(courseObj).then(
+      ([createCourseError, createdCourseData]) => {
+        if (createdCourseData) {
+          dispatch(createCourseAction(createdCourseData.result));
+          history.push("/courses");
+        } else {
+          console.log(createCourseError);
+          alert("Creating course error");
+        }
+      }
+    );
+  };
+}
+
+export function deleteCourse(id) {
+  return (dispatch) => {
+    deleteCourseFetch(id).then(([deleteError]) => {
+      if (deleteError) {
+        console.log(deleteError);
+        alert("Deleting course error!");
       } else {
-        console.log(createCourseError);
-        alert("Creating course error");
+        dispatch(deleteCoursesAction(id));
       }
     });
   };
