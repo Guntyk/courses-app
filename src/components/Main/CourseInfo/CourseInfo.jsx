@@ -1,16 +1,19 @@
+import { coursesSelector } from "../../../redux/courses/selectors";
+import { authorsSelector } from "../../../redux/authors/selectors";
 import { dateGenerator } from "../../../helpers/dateGenerator";
-import { useCoursesContext } from "../../../context/Courses";
 import { pipeDuration } from "../../../helpers/pipeDuration";
 import Preloader from "../../../common/Preloader/Preloader";
 import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import "./CourseInfo.css";
 
 export default function CourseInfo() {
-  const { courses, authors } = useCoursesContext();
-  const { courseId } = useParams();
+  const courses = useSelector(coursesSelector);
+  const authors = useSelector(authorsSelector);
   const [course, setCourse] = useState();
+  const { courseId } = useParams();
 
   useEffect(() => {
     [...courses].map((courseObj) => {
@@ -19,13 +22,6 @@ export default function CourseInfo() {
       }
     });
   }, []);
-
-  function findAuthors(courseAuthorId) {
-    // const result = ;
-    // if (result !== undefined) {
-    //   return result.name;
-    // }
-  }
 
   return (
     <>

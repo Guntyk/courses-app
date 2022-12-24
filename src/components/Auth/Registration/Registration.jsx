@@ -1,4 +1,3 @@
-import { useCoursesContext } from "../../../context/Courses";
 import { register } from "../../../redux/userData/thunk";
 import Button from "../../../common/Button/Button";
 import { Link, Redirect, useHistory } from "react-router-dom";
@@ -7,7 +6,7 @@ import { useDispatch } from "react-redux";
 import "./Registration.css";
 
 export default function Registration() {
-  const { token } = useCoursesContext();
+  const token = window.localStorage.getItem("userToken");
   const dispatch = useDispatch();
   const history = useHistory();
 

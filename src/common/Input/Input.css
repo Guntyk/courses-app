@@ -42,3 +42,15 @@
 .create-description-input {
   min-height: 150px;
 }
+
+.input::-webkit-scrollbar {
+  width: .7em;
+}
+.input::-webkit-scrollbar-track {
+  background: var(--greyLight-1);
+}
+.input::-webkit-scrollbar-thumb {
+  margin-left: 30px;
+  border-radius: 50px;
+  background-color: var(--primary);
+}

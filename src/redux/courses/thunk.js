@@ -3,8 +3,6 @@ import {
   deleteCoursesAction,
   getCoursesAction,
 } from "./actionCreators";
-import { coursesSelector } from "./selectors";
-import { useSelector } from "react-redux";
 import {
   createCourseFetch,
   deleteCourseFetch,
@@ -15,6 +13,7 @@ export function fetchCourses(query) {
   return (dispatch) => {
     getCoursesFetch({ q: query }).then(([coursesErr, courses]) => {
       if (courses) {
+        console.log(courses.result);
         dispatch(getCoursesAction(courses.result));
       } else {
         console.log(coursesErr);
