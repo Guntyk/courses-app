@@ -1,15 +1,18 @@
-import { fetchCourses } from "../../../../redux/courses/thunk";
-import { useDispatch } from "react-redux";
+import { searchCoursesAction } from "../../../../redux/courses/actionCreators";
+import { coursesSelector } from "../../../../redux/courses/selectors";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../../../../common/Button/Button";
 import Input from "../../../../common/Input/Input";
 import "./SearchBar.css";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
+  const courses = useSelector(coursesSelector);
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(fetchCourses(e.target.search.value.trim()))
+    console.log(e.target.search.value.trim());
+    dispatch(searchCoursesAction(e.target.search.value.trim()));
     e.target.search.value = "";
   }
 
@@ -20,7 +23,11 @@ export default function SearchBar() {
         placeholderText="Enter course name or id..."
         name="search"
       />
-      <Button className="btn-primary search-btn" buttonText="Search" type="submit" />
+      <Button
+        className="btn-primary search-btn"
+        buttonText="Search"
+        type="submit"
+      />
     </form>
   );
 }
