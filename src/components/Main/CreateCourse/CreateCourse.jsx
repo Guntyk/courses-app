@@ -1,14 +1,14 @@
-import { fetchAuthors, createAuthor } from "../../../redux/authors/thunk";
-import { authorsSelector } from "../../../redux/authors/selectors";
-import { pipeDuration } from "../../../helpers/pipeDuration";
-import { createCourse } from "../../../redux/courses/thunk";
-import { useDispatch, useSelector } from "react-redux";
-import Button from "../../../common/Button/Button";
-import Input from "../../../common/Input/Input";
-import { useHistory } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
-import "./CreateCourse.css";
+import { fetchAuthors, createAuthor } from '../../../redux/authors/thunk';
+import { authorsSelector } from '../../../redux/authors/selectors';
+import { pipeDuration } from '../../../helpers/pipeDuration';
+import { createCourse } from '../../../redux/courses/thunk';
+import { useDispatch, useSelector } from 'react-redux';
+import Button from '../../../common/Button/Button';
+import Input from '../../../common/Input/Input';
+import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import './CreateCourse.css';
 
 export default function CreateCourse() {
   const [courseAuthors, setCourseAuthors] = useState([]);
@@ -17,19 +17,23 @@ export default function CreateCourse() {
   const [duration, setDuration] = useState(0);
   const dispatch = useDispatch();
   const history = useHistory();
-  const token = window.localStorage.getItem("userToken");
+  const token = window.localStorage.getItem('userToken');
 
   useEffect(() => {
-    updateAuthors();
+    dispatch(fetchAuthors());
   }, []);
 
-  if (
-    authors.length !== 0 &&
-    authorsList.length === 0 &&
-    courseAuthors.length === 0
-  ) {
-    updateAuthors();
-  }
+  useEffect(() => {
+    if (authors.length === 0) return;
+    const courseAuthorIds = courseAuthors.map(
+      (courseAuthor) => courseAuthor.id
+    );
+    const withoutCourseAuthors = authors.filter(
+      (author) => !courseAuthorIds.includes(author.id)
+    );
+    setAuthorsList(withoutCourseAuthors);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authors]);
 
   function addCourse(e) {
     e.preventDefault();
@@ -37,29 +41,23 @@ export default function CreateCourse() {
       title: e.target.title.value.trim(),
       description: e.target.description.value.trim(),
       duration: Number(duration),
-      authors: courseAuthors.map((courseAuthor) => courseAuthor.id),
+      authors: courseAuthors.map((courseAuthor) => courseAuthor.id)
     };
     if (courseAuthors.length === 0 || duration === 0) {
-      alert("Please, fill in all fields");
+      alert('Please, fill in all fields');
       return;
     }
     dispatch(createCourse(newCourse, history));
   }
 
   // ===== Authors Functions =====
-  function updateAuthors() {
-    dispatch(fetchAuthors());
-    setAuthorsList([].concat(authors));
-  }
-
   function addAuthor(e) {
     e.preventDefault();
     const newAuthor = {
-      name: e.target.name.value.trim(),
+      name: e.target.name.value.trim()
     };
     dispatch(createAuthor(newAuthor, token));
-    setAuthorsList([].concat(authors));
-    e.target.name.value = "";
+    e.target.name.value = '';
   }
 
   const addCourseAuthor = (author) => {
@@ -134,10 +132,10 @@ export default function CreateCourse() {
               required
             />
             <span className="duration-result">
-              Duration:{" "}
+              Duration:{' '}
               <span className="time">
-                {duration ? pipeDuration(duration) : "00:00"}
-              </span>{" "}
+                {duration ? pipeDuration(duration) : '00:00'}
+              </span>{' '}
               hours
             </span>
           </div>
