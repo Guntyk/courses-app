@@ -13,7 +13,7 @@ export default function NotFound() {
           className="btn-primary"
           buttonText="Home"
           onClick={() => {
-            replace("/");
+            replace("/courses");
           }}
         />
       </div>

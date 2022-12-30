@@ -1,8 +1,9 @@
 import { userSelector } from "../../redux/userData/selectors";
+import { getUser, logout } from "../../redux/userData/thunk";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/userData/thunk";
 import Button from "../../common/Button/Button";
 import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
 import Logo from "./Logo/Logo";
 import "./Header.css";
 
@@ -11,6 +12,10 @@ export default function Header() {
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  useEffect(() => {
+    if (token) dispatch(getUser());
+  }, []);
 
   return (
     <header className="header">

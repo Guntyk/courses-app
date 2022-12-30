@@ -34,14 +34,14 @@ export default function Courses() {
           />
         </div>
         <article className="courses">
-          {courses.length === 0 ? (
-            <h2>No courses yet</h2>
-          ) : (
+          {courses.length !== 0 && courses.at(-1) !== undefined ? (
             courses
               .filter((course) =>
                 course.title.toLowerCase().includes(searchQuery.toLowerCase())
               )
               .map((course) => <CourseCard course={course} key={course.id} />)
+          ) : (
+            <h2>No courses yet</h2>
           )}
         </article>
       </main>

@@ -3,6 +3,7 @@ import {
   DELETE_COURSE,
   EDIT_COURSE,
   GET_COURSES,
+  SEARCH_COURSES,
 } from "./actionTypes";
 
 export function getCoursesAction(payload) {
@@ -16,4 +17,7 @@ export function editCoursesAction(payload) {
 }
 export function deleteCoursesAction(payload) {
   return { type: DELETE_COURSE, payload };
+}
+export function searchCoursesAction(payload) {
+  return { type: SEARCH_COURSES, payload }
 }

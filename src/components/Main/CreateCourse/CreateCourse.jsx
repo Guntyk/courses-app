@@ -47,6 +47,7 @@ export default function CreateCourse() {
       alert('Please, fill in all fields');
       return;
     }
+    console.log(newCourse)
     dispatch(createCourse(newCourse, history));
   }
 

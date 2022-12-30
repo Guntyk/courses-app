@@ -18,7 +18,7 @@ export function createAuthor(authorObj, token) {
   return (dispatch) => {
     createAuthorFetch(authorObj, token).then(([createAuthorError, createdAuthor]) => {
       if (createdAuthor) {
-        dispatch(createAuthorAction(createdAuthor));
+        dispatch(createAuthorAction(createdAuthor.result));
       } else {
         console.log(createAuthorError);
         alert("Creating author error");

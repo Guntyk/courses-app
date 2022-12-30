@@ -7,13 +7,13 @@ import {
   createCourseFetch,
   deleteCourseFetch,
   getCoursesFetch,
+  searchCourseFetch,
 } from "../../api/requests";
 
-export function fetchCourses(query) {
+export function fetchCourses() {
   return (dispatch) => {
-    getCoursesFetch({ q: query }).then(([coursesErr, courses]) => {
+    getCoursesFetch().then(([coursesErr, courses]) => {
       if (courses) {
-        console.log(courses.result);
         dispatch(getCoursesAction(courses.result));
       } else {
         console.log(coursesErr);
@@ -25,6 +25,7 @@ export function fetchCourses(query) {
 
 export function createCourse(courseObj, history) {
   return (dispatch) => {
+    console.log(courseObj)
     createCourseFetch(courseObj).then(
       ([createCourseError, createdCourseData]) => {
         if (createdCourseData) {

@@ -10,6 +10,12 @@ coursesApi.interceptors.response.use(
 );
 
 //* Auth
+export const getCurrentUserFetch = (data) =>
+  coursesApi.get(`/users/me`, {
+    headers: {
+      Authorization: window.localStorage.getItem("userToken"),
+    },
+  });
 export const loginUserFetch = (data) => coursesApi.post(`/login`, data);
 export const registerUserFetch = (data) => coursesApi.post(`/register`, data);
 export const logoutUserFetch = (token) =>

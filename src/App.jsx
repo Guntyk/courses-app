@@ -1,6 +1,6 @@
-import CourseInfo from './components/Main/CourseInfo/CourseInfo';
 import CreateCourse from './components/Main/CreateCourse/CreateCourse';
 import Registration from './components/Auth/Registration/Registration';
+import CourseInfo from './components/Main/CourseInfo/CourseInfo';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Courses from './components/Main/Courses/Courses';
 import NotFound from './components/NotFound/NotFound';
@@ -18,9 +18,6 @@ function App() {
           </Route>
           <Route exact path="/login">
             <Login />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/courses" />
           </Route>
           <Route exact path="/courses">
             <Courses />
